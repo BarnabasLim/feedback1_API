@@ -1,0 +1,113 @@
+reference: https://www.youtube.com/watch?v=l8WPWK9mS5M&t=1738s
+
+Step 1: install node
+	Create an minimal package.json file
+		> npm init -y
+
+Step 2: install Express
+	> npm instal --save express
+	
+	in package.json
+		{
+			...
+			"type":  "module"
+			...
+		}
+	in index.js
+		import express from 'express';
+		//const express=require('express');
+		import bodyParser from 'body-parser'
+	
+		const app=express();
+		const PORT=5000;
+		
+		app.use(bodyParser.json());
+
+		app.listen(PORT, ()=>{
+			console.log(`Server Running on Port: http://localhost:${PORT}`)
+		})
+
+
+Step 3: install nodemon so that changes are immediate 'recompiled'
+	> npm install --save-dev nodemon
+	
+	in package.json
+	"scripts":{
+		"start": "nodemon index.js"
+	}
+	
+	npm start
+
+Step 4: Create Route
+	//get Request
+	app.get('/',(req, res)=>{
+		console.log('[TEST]');
+		res.send('Hello from Homepage');
+	});
+
+Step 5: Design Routes
+	GET    /users     find all users
+	POST   /users     creates a user
+	GET    /users/:id finds user details
+	DELETE /users/:id delete a user
+	PATCH  /users/:id updates a user
+	
+	Design User Schema
+	in user.json
+	{
+		"firstName":"John",
+		"lastName":"Doe"
+		"age":25
+	}
+
+Step 6: Organisation
+	##############################################
+	in ./routes/users.js
+	import express from 'express';
+	const router=express.Router();
+
+	const users=[{		
+		"firstName":"John",
+		"lastName":"Doe"
+		"age":25
+	},];
+	
+	router.get('/',(req, res)=>{
+		res.send('Hello');
+	})
+
+	export default Router
+	##############################################
+
+	##############################################
+	in index.js
+	import userRoutes from './routes/users.js'
+	
+	...
+	//all routes from userRoutes will start with /users
+	app.use('/users',userRoutes);
+	...
+	##############################################
+
+Step 7: 
+	GET user
+	router.get('/',(req, res)=>{
+		//Access and check req.body, req.params
+		
+		//Carry out database 
+	
+		//Return res.send()
+		res.send(users);
+	})
+
+	POST user
+	router.post('/',(req, res)=>{
+		//Access and check req.body, req.params
+		
+		//Carry out database 
+	
+		//Return res.send()
+		res.send(users);
+	
+	})
+Step 3: install postMan
