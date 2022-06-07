@@ -11,3 +11,9 @@ package.json
 
 2.install hiroku CLI
 https://devcenter.heroku.com/articles/heroku-cli
+
+3. Login
+in CMD >>heroku login
+
+4. Create Web application
+in CMD >>heroku create
