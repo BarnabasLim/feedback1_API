@@ -10,4 +10,4 @@ app.get('/',(req, res)=>{
     console.log('[TEST]');
     res.send('Hello from Homepage');
 });
-app.listen(PORT, ()=>{console.log(`Server Running on Port : http://localhost:${PORT}`)})
+app.listen(process.env.PORT||PORT, ()=>{console.log(`Server Running on Port : http://localhost:${PORT}`)})

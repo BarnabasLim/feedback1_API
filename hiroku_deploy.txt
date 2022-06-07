@@ -1,0 +1,10 @@
+package.json
+
+1. must have start scripts 
+{
+	...
+	"scripts":{
+		"start":...
+	}
+
+}
