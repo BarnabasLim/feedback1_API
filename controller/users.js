@@ -1,55 +1,67 @@
-let users=[{
-    firstName:'John',
-    lastName:'Doe',
-    age:15,
-    id:"1"
-    },
-    {
-    firstName:'Jane',
-    lastName:'Foster',
-    age:20,
-    id:"2",
-    },
-    ]
+import {
+    db_addUser, 
+    db_getUsers,
+    db_getUser,
+    db_deleteUser,
+    db_updateUser,
 
-export const getUsers=(req,res)=>{
+} from '../api/firestore.js'
+
+
+export const getUsers=async(req,res)=>{
+    //1. Access req.body or req.params
+    let users=[];
+    //2. Interact with database
+    await db_getUsers((ans)=>{users=ans;},()=>{});
+
+     //3. Send res
     res.send(users);
 }
 
-export const getUser=(req,res)=>{
+export const getUser=async(req,res)=>{
+    //1. Access req.body or req.params
     const {id}=req.params;
 
-    const user=users.filter((user)=>user.id===id);
+     //2. Interact with database
+    let user={};
+    await db_getUser(id,(ans)=>{user=ans},()=>{});
 
+     //3. Send res
     res.send(user);
 }
-export const addUser=(req, res)=>{
+export const addUser=async(req, res)=>{
     //1. Access req.body or req.params
     const user=req.body;
+
     //2. Interact with database
-    users.push(user);
+    await db_addUser(user,()=>{},(e)=>{console.log(e)});
+
     //3. Send res
     res.send(`${user.firstName} added`);
 
 }
 
-export const deleteUser=(req,res)=>{
+export const deleteUser=async(req,res)=>{
     //1. Access req.body or req.params
     const {id}=req.params;
     console.log(id)
+
     //2. Interact with database
-    users=users.filter((user)=>( user.id!==id));
+    await db_deleteUser(id, ()=>{},()=>{});
+
     //3. Send res
-    res.send(users);
+    res.send(user);
 }
 
-export const updateUser=(req,res)=>{
+export const updateUser=async(req,res)=>{
     //1. Access req.body or req.params
     const {id}=req.params;
     const {firstName, lastName , age}=req.body;
 
     //2. Interact with database
-    const userToUpd=users.find((user)=>user.id==id)
+    let userToUpd=new Object();
+    userToUpd.id=id;
+    console.log(userToUpd);
     if(firstName){
         userToUpd.firstName=firstName
     }
@@ -59,6 +71,8 @@ export const updateUser=(req,res)=>{
     if(age){
         userToUpd.age=age
     }
+    await db_updateUser(userToUpd,()=>{},()=>{})
+
     //3. Send res
     res.send(`${id} updated`);
 }
