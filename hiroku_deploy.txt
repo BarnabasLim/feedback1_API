@@ -8,3 +8,6 @@ package.json
 	}
 
 }
+
+2.install hiroku CLI
+https://devcenter.heroku.com/articles/heroku-cli
