@@ -1,3 +1,4 @@
+https://www.youtube.com/watch?v=27GoRa4d15c
 package.json
 
 1. must have start scripts 
